@@ -28,8 +28,6 @@ results = model(input_images)
 # By default, YOLOv5's results are saved under 'runs/detect', to save in 'output_folder', we use the 'project' and 'name' arguments
 results.save(save_dir=output_folder)
 
-
-
 # Assume 'results' is the object returned by the YOLOv5 model after inference
 detections = results.pandas().xyxy[0]  # Get detections for the first image in a DataFrame
 
