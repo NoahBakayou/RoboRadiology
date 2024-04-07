@@ -1,39 +1,43 @@
 from flask import Flask, render_template, request, redirect, url_for
 import os
 import glob
-import subprocess
+from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
-UPLOAD_FOLDER = '/Users/noahbakayou/Developer/Coding Projects/VSCodeProjects/AI/HackathonAIDoctor/yolov5/detection_workflow/input_images'
-OUTPUT_BASE_FOLDER = '/Users/noahbakayou/Developer/Coding Projects/VSCodeProjects/AI/HackathonAIDoctor/yolov5/detection_workflow'
+
+# Base directory for uploading and serving processed images
+UPLOAD_FOLDER = 'static/images'
+PROCESSED_FOLDER_BASE = 'static'
+PROCESSED_FOLDER = os.path.join(PROCESSED_FOLDER_BASE, 'processed_images*')
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 @app.route('/', methods=['GET', 'POST'])
 def upload_file():
     if request.method == 'POST':
-        file = request.files.get('file')
+        file = request.files['file']
         if file:
-            file_path = os.path.join(UPLOAD_FOLDER, file.filename)
+            filename = secure_filename(file.filename)
+            file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
             file.save(file_path)
-            
-            # Assuming detect_local.py processes the image and saves it
+
+            # Assuming detect_local.py is set up to read from UPLOAD_FOLDER and write to a processed_images* directory
+            # Adjust the subprocess command as necessary
+            import subprocess
             subprocess.run(['python', 'detect_local.py', file_path], check=True)
 
-            # Redirect to GET to show the latest image
             return redirect(url_for('upload_file'))
-    
-    # Find the most recent output directory
-    latest_dir = max(glob.glob(os.path.join(OUTPUT_BASE_FOLDER, 'output_images*')), key=os.path.getmtime, default=None)
+
+    # Find the latest processed_images* directory
+    processed_dirs = glob.glob(PROCESSED_FOLDER)
+    latest_dir = max(processed_dirs, key=os.path.getmtime, default=None)
+
+    latest_image_url = None
     if latest_dir:
-        # Find the first image in the directory
-        latest_image = next(iter(glob.glob(os.path.join(latest_dir, '*.*'))), None)
+        # Find the latest image within that directory
+        latest_image = max(glob.glob(os.path.join(latest_dir, '*.jpg')), key=os.path.getmtime, default=None)
         if latest_image:
-            # Make the path relative to the static directory to serve it
-            # Assuming 'static' is a symlink or otherwise maps to your 'detection_workflow'
-            latest_image_url = os.path.relpath(latest_image, 'static')
-        else:
-            latest_image_url = None
-    else:
-        latest_image_url = None
+            # Generate the relative path for HTML use
+            latest_image_url = os.path.relpath(latest_image, PROCESSED_FOLDER_BASE)
 
     return render_template('upload.html', latest_image_url=latest_image_url)
 
