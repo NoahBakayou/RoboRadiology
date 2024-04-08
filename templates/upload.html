@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Upload Image</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
     <h1>Upload an Image</h1>
     <form method="post" enctype="multipart/form-data">
         <input type="file" name="file" accept="image/*">
-        <input type="submit" value="Upload">
+        <input type="submit" value="Upload" id="uploadFile">
     </form>
     {% if latest_image_url %}
         <h2>Latest Processed Image:</h2>
@@ -16,5 +17,16 @@
     {% else %}
         <p>No images processed yet.</p>
     {% endif %}
+    <div class="embed-container">
+        <script type="text/javascript" src="//vhss-d.oddcast.com/vhost_embed_functions_v4.php?acc=8975655&js=0"></script>
+        <script type="text/javascript">
+            AC_VHost_Embed(8975655, 400, 400, "", 1, 1, 2768738, 0, 1, 0, "0xZBiuHROv7RAoK3mrekpoJrK7OLbFa4", 0, 0);
+        </script>
+    </div>
+
+
+    
+        
+
 </body>
 </html>
