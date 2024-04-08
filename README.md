@@ -1,4 +1,5 @@
 # RoboRadiology
+![brain](https://github.com/NoahBakayou/RoboRadiology/assets/100172278/676e93ec-2760-4be5-9548-8bd7c59acc19)
 
 ## Inspiration
 According to the CIA, the average number of doctors for every one million people in the East African Community countries is **103**. With the advancements in deep learning and computer vision, we sought to leverage these technologies to assist people who lack medical resources in the early detection and classification of tumors in the brain. The potential impact on patient outcomes and healthcare efficiency served as a driving force behind our project.
