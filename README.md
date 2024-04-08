@@ -33,7 +33,7 @@ Throughout the development process, we gained a deeper understanding of convolut
 ## Our overall goal
 Our overarching goal is to bridge the gap in healthcare accessibility, particularly in underserved regions where medical resources are scarce. By leveraging cutting-edge AI technologies, we aim to democratize healthcare by providing faster diagnostics and expert assistance in medical imaging interpretation. Our specific objectives include expediting medical diagnosis to reduce wait times, aiding healthcare professionals in confirming diagnoses and empowering patients with accessible healthcare solutions.
 
-## What's next for Test
+## What's next?
 Moving forward, we have identified several key areas for development and expansion. For instance, we are looking to expand our capabilities by incorporating smartphone-based imaging alongside traditional methodologies such as X-rays. Acquiring access to diverse and high-quality medical imaging datasets is essential for improving the robustness and accuracy of our AI models. We aim to further refine and expand our AI models to detect a broader range of medical issues beyond brain tumors. By leveraging state-of-the-art algorithms and advanced training techniques, we hope to enhance the versatility and efficacy of our system in detecting multiple types of abnormalities across different anatomical regions. 
 
 
